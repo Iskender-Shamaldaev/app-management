@@ -1,41 +1,35 @@
-import React, {useState} from 'react';
-import {IUser, IUserMutation} from "../../types";
-import {nanoid} from "nanoid";
+import React, { useState } from 'react';
+import { IUser, IUserMutation } from "../../types";
+import { nanoid } from "nanoid";
 
 interface Props {
     onSubmit: (newUser: IUser) => void;
 }
 
-const UserForm: React.FC<Props> = ({onSubmit}) => {
-    const [user, setUser] = useState <IUserMutation>({
+const UserForm: React.FC<Props> = ({ onSubmit }) => {
+    const [user, setUser] = useState<IUserMutation>({
         name: '',
         email: '',
-        activity: false,
+        activity: true,
         image: '',
         role: ''
     });
 
-    const userChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const {name, value} = e.target;
-
+    const userChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+        const { name, value } = e.target;
         setUser(prevState => ({
             ...prevState,
             [name]: value,
         }));
     };
 
-
     const onFormSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-
         onSubmit({
             id: nanoid(),
             ...user,
         });
     };
-
-
-
 
     return (
         <form onSubmit={onFormSubmit}>
@@ -50,12 +44,11 @@ const UserForm: React.FC<Props> = ({onSubmit}) => {
                     className="form-control"
                     value={user.name}
                     onChange={userChange}
-
                 />
             </div>
 
             <div className="form-group">
-                <label htmlFor="image">Email</label>
+                <label htmlFor="email">Email</label>
                 <input
                     type="email"
                     name="email"
@@ -67,24 +60,36 @@ const UserForm: React.FC<Props> = ({onSubmit}) => {
             </div>
 
             <div className="form-group">
-                <select className="mt-3 mb-3 w-100 h5">
-                    <option>Activity</option>
-                    <option value="1">Active</option>
-                    <option value="2">Inactive</option>
+                <label htmlFor="activity">Activity</label>
+                <select
+                    name="activity"
+                    id="activity"
+                    className="form-control"
+                    value={user.activity.toString()}
+                    onChange={userChange}
+                >
+                    <option value="true">Active</option>
+                    <option value="false">Inactive</option>
                 </select>
             </div>
-
 
             <div className="form-group">
-                <select className="mb-3 w-100 h5">
-                    <option>Role</option>
-                    <option value="1">User</option>
-                    <option value="2">Editor</option>
-                    <option value="2">Admin</option>
+                <label htmlFor="role">Role</label>
+                <select
+                    name="role"
+                    id="role"
+                    className="form-control"
+                    value={user.role}
+                    onChange={userChange}
+                >
+                    <option value="">Select role</option>
+                    <option value="User">User</option>
+                    <option value="Editor">Editor</option>
+                    <option value="Admin">Admin</option>
                 </select>
             </div>
 
-            <button type="submit" className="btn btn-primary">Create</button>
+            <button type="submit" className="btn btn-primary mt-3">Create</button>
         </form>
     );
 };
