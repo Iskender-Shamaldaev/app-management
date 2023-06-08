@@ -7,9 +7,9 @@ import {useState} from "react";
 
 const App = () => {
     const [users, setUsers] = useState<IUser[]>([
-        {id: '1', name: 'Sasha', email: 'sasha.@mail.ru', activity: true, image: '', role: 'user'},
-        {id: '2', name: 'Andrei', email: 'andrei.@mail.ru', activity: true, image: '', role: 'editor'},
-        {id: '2', name: 'Sergei', email: 'sergei.@mail.ru', activity: true, image: '', role: 'admin'},
+        {id: '1', name: 'Sasha', email: 'sasha.@mail.ru', activity: false, image: '', role: 'user'},
+        {id: '2', name: 'Andrei', email: 'andrei.@mail.ru', activity: false, image: '', role: 'editor'},
+        {id: '2', name: 'Sergei', email: 'sergei.@mail.ru', activity: false, image: '', role: 'admin'},
     ]);
 
     const addItem = (newUser: IUser) => {

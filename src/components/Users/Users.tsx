@@ -12,7 +12,7 @@ const Users: React.FC<Props> = ({ items }) => {
         <>
             <h4>Users</h4>
             {items.map((item) => (
-                <UserItem key={nanoid()} user={item} />
+                <UserItem key={nanoid()} user={item} activityMessage={item.activity ? 'Active' : 'Inactive'} />
             ))}
         </>
     );

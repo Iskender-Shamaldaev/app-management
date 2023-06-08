@@ -10,7 +10,7 @@ const UserForm: React.FC<Props> = ({ onSubmit }) => {
     const [user, setUser] = useState<IUserMutation>({
         name: '',
         email: '',
-        activity: true,
+        activity: false,
         image: '',
         role: ''
     });
@@ -59,22 +59,18 @@ const UserForm: React.FC<Props> = ({ onSubmit }) => {
                 />
             </div>
 
-            <div className="form-group">
+            <div className="form-group mt-3 mb-3">
                 <label htmlFor="activity">Activity</label>
-                <select
+                <input
+                    type="checkbox"
                     name="activity"
                     id="activity"
-                    className="form-control"
-                    value={user.activity.toString()}
-                    onChange={userChange}
-                >
-                    <option value="true">Active</option>
-                    <option value="false">Inactive</option>
-                </select>
+                    checked={user.activity}
+                    onChange={(e) => setUser(prevState => ({ ...prevState, activity: e.target.checked }))}
+                />
             </div>
 
             <div className="form-group">
-                <label htmlFor="role">Role</label>
                 <select
                     name="role"
                     id="role"
@@ -88,10 +84,13 @@ const UserForm: React.FC<Props> = ({ onSubmit }) => {
                     <option value="Admin">Admin</option>
                 </select>
             </div>
-
-            <button type="submit" className="btn btn-primary mt-3">Create</button>
+            <button type="submit" className="btn btn-primary mt-3">
+                Create
+            </button>
         </form>
     );
 };
 
 export default UserForm;
+
+
